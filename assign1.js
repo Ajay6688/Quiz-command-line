@@ -104,7 +104,7 @@ async function timer() {
     // printig questions and taking input form the user
     let rightAns = 0;
     let wrongAns = 0;
-    console.log(uniqueRandArr);
+   // console.log(uniqueRandArr);
     async function startQuiz() {
         for (let i = 0; i < questionBank.length; i++) {
             let j = uniqueRandArr[i];
