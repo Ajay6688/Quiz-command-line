@@ -73,7 +73,6 @@ async function timer() {
         }
     }
     startQuiz();
-
 }
 timer();
 
@@ -82,21 +81,19 @@ timer();
 let uniqueRandArr = [];
 let randNum;
 for (let i = 0; i < questionBank.length; i++) {
-    function randomNumber() {
-        randNum = Math.floor(Math.random() * questionBank.length);
-        if (uniqueRandArr.includes(randNum)) {
-            randomNumber();
-        } else {
-            uniqueRandArr.push(randNum);
-        }
+    randNum = Math.floor(Math.random() * questionBank.length);
+    if (uniqueRandArr.includes(randNum)) {
+        i--;
+        continue;
+    } else {
+        uniqueRandArr.push(randNum);
     }
-    randomNumber();
 }
+
 // console.log(uniqueRandArr)
 
 function getInput(ipt) {
     return new Promise(resolve => {
-
         read.question(ipt, (input) => {
             resolve(+input);
         });
