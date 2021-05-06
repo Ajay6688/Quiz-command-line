@@ -73,7 +73,6 @@ async function timer() {
         }
     }
 
-
     // generating non repeating random numbers
 
     let uniqueRandArr = [];
