@@ -5,8 +5,7 @@ const read = readline.createInterface({
 });
 
 //Question Bank
-var questionBank = [
-    {
+var questionBank = [{
         question: " Which type of JavaScript language is ___ \n 1: Object-Oriented \n 2: Object-Based \n 3: Assembly-language \n 4:High-level",
         correctAnswer: 2
     },
@@ -57,89 +56,87 @@ async function timer() {
     const timeout = await getInput(inputMsg);
 
     let totalTime = timeout * 60;
-    let minutes ,seconds,hours;
+    let minutes, seconds, hours;
 
     setInterval(updateTimer, 1000);
+
     function updateTimer() {
         minutes = Math.floor(totalTime / 60);
         seconds = totalTime % 60;
-        hours = Math.floor(totalTime/3600);
+        hours = Math.floor(totalTime / 3600);
         // console.log(minutes +" : "+seconds);
         totalTime--;
-        if (minutes == 0 && seconds == 0 && hours==0) {
+        if (minutes == 0 && seconds == 0 && hours == 0) {
             console.log("\n <-------------- SORRY TIME UP -------------->");
             result();
             process.exit();
         }
     }
-
-    // generating non repeating random numbers
-
-    let uniqueRandArr = [];
-    let randNum;
-    for (let i = 0; i < questionBank.length; i++) {
-        function randomNumber() {
-            randNum = Math.floor(Math.random() * questionBank.length);
-            if (uniqueRandArr.includes(randNum)) {
-                randomNumber();
-            }
-            else {
-                uniqueRandArr.push(randNum);
-            }
-        }
-        randomNumber();
-    }
-    // console.log(uniqueRandArr)
-
-    function getInput(ipt) {
-        return new Promise(resolve => {
-
-            read.question(ipt, (input) => {
-                resolve(+input);
-            });
-        });
-    }
-
-    // printig questions and taking input form the user
-    let rightAns = 0;
-    let wrongAns = 0;
-    console.log(uniqueRandArr);
-    async function startQuiz() {
-        for (let i = 0; i < questionBank.length; i++) {
-            let j = uniqueRandArr[i];
-            let inputMsg = "Please enter your choise : "
-            console.log("\nQuestion " + (i + 1) + ": " + questionBank[j].question)
-            var userInput = await getInput(inputMsg);
-            if (userInput == 5) {
-                console.log("Time Left (hh/mm/ss) "+hours+" : "+minutes + " : " + seconds);
-                userInput = await getInput(inputMsg);
-            }
-            if (userInput == questionBank[j].correctAnswer) {
-                console.log("Right answer ")
-                rightAns++;
-            }
-            else {
-                console.log("Sorry wrong answer");
-                wrongAns++;
-            }
-
-
-        }
-        result();
-        process.exit();
-    }
-    // Quiz Result
-    function result() {
-        console.log("\n<-------------  RESULTS -------------->");
-        console.log("Total no. of questions in the quiz " + questionBank.length);
-        console.log("Total no. of questions you attempted :" + (rightAns + wrongAns));
-        console.log("Total no. of right answers :" + rightAns);
-        console.log("Total no. of wrong answers :" + wrongAns);
-        console.log("Your %age is :" + (rightAns / questionBank.length * 100).toFixed(2));
-        console.log("\n <-------------- THANK YOU -------------->");
-    }
-
     startQuiz();
 
 }
 timer();
+
+// generating non repeating random numbers
+
+let uniqueRandArr = [];
+let randNum;
+for (let i = 0; i < questionBank.length; i++) {
+    function randomNumber() {
+        randNum = Math.floor(Math.random() * questionBank.length);
+        if (uniqueRandArr.includes(randNum)) {
+            randomNumber();
+        } else {
+            uniqueRandArr.push(randNum);
+        }
+    }
+    randomNumber();
+}
+// console.log(uniqueRandArr)
+
+function getInput(ipt) {
+    return new Promise(resolve => {
+
+        read.question(ipt, (input) => {
+            resolve(+input);
+        });
+    });
+}
+
+// printig questions and taking input form the user
+let rightAns = 0;
+let wrongAns = 0;
+// console.log(uniqueRandArr);
+async function startQuiz() {
+    for (let i = 0; i < questionBank.length; i++) {
+        let j = uniqueRandArr[i];
+        let inputMsg = "Please enter your choise : "
+        console.log("\nQuestion " + (i + 1) + ": " + questionBank[j].question)
+        var userInput = await getInput(inputMsg);
+        if (userInput == 5) {
+            console.log("Time Left (hh/mm/ss) " + hours + " : " + minutes + " : " + seconds);
+            userInput = await getInput(inputMsg);
+        }
+        if (userInput == questionBank[j].correctAnswer) {
+            console.log("Right answer ")
+            rightAns++;
+        } else {
+            console.log("Sorry wrong answer");
+            wrongAns++;
+        }
+
+
+    }
+    result();
+    process.exit();
+}
+// Quiz Result
+function result() {
+    console.log("\n<-------------  RESULTS -------------->");
+    console.log("Total no. of questions in the quiz " + questionBank.length);
+    console.log("Total no. of questions you attempted :" + (rightAns + wrongAns));
+    console.log("Total no. of right answers :" + rightAns);
+    console.log("Total no. of wrong answers :" + wrongAns);
+    console.log("Your %age is :" + (rightAns / questionBank.length * 100).toFixed(2));
+    console.log("\n <-------------- THANK YOU -------------->");
+}
